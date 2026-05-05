@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ninefold Pest — Agent Quick Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:#1F5C99;--blue-lt:#DAEAF6;--blue-mid:#378ADD;
+    --red:#B93025;--red-lt:#FDECEA;
+    --green:#1A7A4A;--green-lt:#E2F4EC;
+    --amber:#8B5E00;--amber-lt:#FEF5E0;--amber-mid:#EF9F27;
+    --purple:#4A3799;--purple-lt:#EEEAF8;
+    --coral:#8C3310;--coral-lt:#FAF0EA;
+    --teal:#0A5C44;--teal-lt:#E0F4EE;
+    --gray:#444441;--gray-lt:#F5F5F4;--gray-mid:#888786;
+    --border:#E2E2E0;--white:#fff;--text:#1A1A1A;
+  }
+  html, body { height: 100%; }
+  body {
+    font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6;
+    color:var(--text);background:#F0EEE9;
+    display:flex;flex-direction:column;height:100%;overflow:hidden;
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    background:var(--white);border-bottom:1px solid var(--border);
+    padding:10px 16px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    flex-wrap:wrap;
+  }
+  .brand { font-size:15px;font-weight:600;color:var(--blue);letter-spacing:-.3px; }
+  .brand span { color:var(--gray-mid);font-weight:400;font-size:12px;margin-left:6px; }
+  .nav { display:flex;flex-wrap:wrap;gap:5px; }
+  .nav a {
+    font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;
+    border:1.5px solid;text-decoration:none;transition:opacity .15s;white-space:nowrap;
+  }
+  .nav a:hover{opacity:.7}
+  .n1{color:var(--blue);border-color:var(--blue-mid)}
+  .n2{color:var(--red);border-color:var(--red)}
+  .n3{color:var(--purple);border-color:var(--purple)}
+  .n4{color:var(--amber);border-color:var(--amber-mid)}
+  .n5{color:var(--teal);border-color:var(--teal)}
+  .n6{color:var(--coral);border-color:var(--coral)}
+  .n7{color:var(--green);border-color:var(--green)}
+  .n8{color:var(--gray);border-color:var(--gray-mid)}
+
+  /* ── Scrollable content ── */
+  .content {
+    flex:1;overflow-y:auto;padding:14px 14px 32px;
+    scroll-behavior:smooth;
+  }
+
+  /* ── Section cards ── */
+  .section {
+    background:var(--white);border-radius:10px;border:1px solid var(--border);
+    overflow:hidden;margin-bottom:10px;
+  }
+  .sec-head {
+    display:flex;align-items:center;gap:9px;padding:10px 14px;
+    border-bottom:1px solid var(--border);
+  }
+  .sec-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .sec-label{font-size:12px;font-weight:600}
+  .sec-badge{margin-left:auto;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500}
+  .sec-body{padding:12px 14px}
+
+  .c-blue{background:var(--blue-mid)}.c-red{background:var(--red)}
+  .c-purple{background:var(--purple)}.c-amber{background:var(--amber-mid)}
+  .c-teal{background:var(--teal)}.c-coral{background:var(--coral)}
+  .c-green{background:var(--green)}.c-gray{background:var(--gray-mid)}
+
+  .b-blue{background:var(--blue-lt);color:var(--blue)}
+  .b-red{background:var(--red-lt);color:var(--red)}
+  .b-purple{background:var(--purple-lt);color:var(--purple)}
+  .b-amber{background:var(--amber-lt);color:var(--amber)}
+  .b-teal{background:var(--teal-lt);color:var(--teal)}
+  .b-coral{background:var(--coral-lt);color:var(--coral)}
+  .b-green{background:var(--green-lt);color:var(--green)}
+  .b-gray{background:var(--gray-lt);color:var(--gray)}
+
+  /* ── Steps ── */
+  .step-row{display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--gray-lt)}
+  .step-row:last-child{border-bottom:none}
+  .step-num{width:20px;height:20px;border-radius:50%;background:var(--blue-lt);color:var(--blue);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .step-text{font-size:12.5px;line-height:1.5}
+  .step-text em{font-style:italic;color:var(--gray-mid)}
+
+  /* ── Rules ── */
+  .rule-row{display:flex;gap:7px;align-items:flex-start;margin-bottom:6px}
+  .rule-row:last-child{margin-bottom:0}
+  .tag{font-size:9.5px;font-weight:600;padding:2px 6px;border-radius:4px;flex-shrink:0;margin-top:2px;letter-spacing:.03em}
+  .t-always{background:var(--green-lt);color:var(--green)}
+  .t-never{background:var(--red-lt);color:var(--red)}
+  .t-rule{background:var(--blue-lt);color:var(--blue)}
+  .rule-text{font-size:12.5px;line-height:1.5}
+
+  /* ── Transfers ── */
+  .xfer-block{border:1px solid var(--border);border-radius:7px;overflow:hidden;margin-bottom:7px}
+  .xfer-block:last-child{margin-bottom:0}
+  .xfer-head{font-size:11.5px;font-weight:600;padding:6px 11px;background:var(--purple-lt);color:var(--purple)}
+  .xfer-body{font-size:12.5px;padding:7px 11px;line-height:1.5}
+  .xfer-note{font-size:11px;padding:5px 11px 6px;color:var(--gray-mid);border-top:1px solid var(--border);background:var(--gray-lt);font-style:italic;line-height:1.4}
+
+  /* ── Scheduling ── */
+  .sched-tier{border:1px solid var(--border);border-radius:7px;overflow:hidden;margin-bottom:7px}
+  .sched-head{font-size:11.5px;font-weight:600;padding:6px 11px}
+  .sh-green{background:var(--green-lt);color:var(--green)}
+  .sh-amber{background:var(--amber-lt);color:var(--amber)}
+  .sh-coral{background:var(--coral-lt);color:var(--coral)}
+  .sh-purple{background:var(--purple-lt);color:var(--purple)}
+  .sched-body{font-size:12.5px;padding:7px 11px;line-height:1.5}
+  .sched-note{font-size:11px;padding:5px 11px 6px;color:var(--gray-mid);border-top:1px solid var(--border);background:var(--gray-lt);font-style:italic;line-height:1.4}
+  .sched-rules{margin-top:8px}
+
+  /* ── Scripts ── */
+  .script-card{background:var(--gray-lt);border-radius:7px;padding:10px 12px;margin-bottom:7px;border:1px solid var(--border)}
+  .script-card:last-child{margin-bottom:0}
+  .script-label{font-size:9.5px;font-weight:600;color:var(--gray-mid);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+  .script-text{font-size:12.5px;line-height:1.6;font-style:italic}
+
+  /* ── Callout ── */
+  .callout{background:var(--amber-lt);border:1px solid var(--amber-mid);border-radius:7px;padding:9px 12px;margin-bottom:10px;font-size:12px;color:var(--amber);line-height:1.5}
+  .callout strong{font-weight:600}
+
+  /* ── Appt grid ── */
+  .appt-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:9px}
+  .appt-card{border:1px solid var(--border);border-radius:7px;overflow:hidden}
+  .appt-head{font-size:10.5px;font-weight:600;padding:6px 10px}
+  .ah-amber{background:var(--amber-lt);color:var(--amber)}
+  .ah-blue{background:var(--blue-lt);color:var(--blue)}
+  .appt-body{padding:7px 10px}
+  .appt-item{font-size:12px;line-height:1.5;padding:3px 0;border-bottom:1px solid var(--border);display:flex;gap:6px}
+  .appt-item:last-child{border-bottom:none}
+  .appt-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px}
+  .dot-amber{background:var(--amber-mid)}.dot-blue{background:var(--blue-mid)}
+  .appt-warn{color:var(--amber);font-style:italic}
+
+  /* ── Info card ── */
+  .info-card{border:1px solid var(--border);border-radius:7px;overflow:hidden;margin-bottom:8px}
+  .info-head{font-size:10.5px;font-weight:600;padding:6px 11px;background:var(--gray-lt);color:var(--gray);border-bottom:1px solid var(--border)}
+  .info-item{font-size:12.5px;padding:5px 11px;border-bottom:1px solid var(--gray-lt);line-height:1.5}
+  .info-item:last-child{border-bottom:none}
+
+  /* ── Don't say ── */
+  .dont-row{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:5px}
+  .dont-row:last-child{margin-bottom:0}
+  .dont-wrong{background:var(--red-lt);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--red);line-height:1.5}
+  .dont-right{background:var(--green-lt);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--green);line-height:1.5}
+  .dx{font-weight:700;margin-right:3px}
+
+  .gap{height:8px}
+</style>
+</head>
+<body>
+
+  <!-- Top bar with nav -->
+  <div class="topbar">
+    <div class="brand">Ninefold Pest <span>Agent Quick Reference</span></div>
+    <nav class="nav">
+      <a href="#callflow"   class="n1">Call flow</a>
+      <a href="#hardrules"  class="n2">Hard rules</a>
+      <a href="#transfers"  class="n3">Transfers</a>
+      <a href="#scheduling" class="n4">Scheduling</a>
+      <a href="#scripts"    class="n5">Scripts</a>
+      <a href="#deadair"    class="n6">Dead air / hold</a>
+      <a href="#notes"      class="n7">Notes &amp; appt cards</a>
+      <a href="#language"   class="n8">Language guide</a>
+    </nav>
+  </div>
+
+  <div class="content">
+
+    <!-- 1. Call Flow -->
+    <div class="section" id="callflow">
+      <div class="sec-head"><div class="sec-dot c-blue"></div><span class="sec-label">Call flow</span><span class="sec-badge b-blue">10 steps</span></div>
+      <div class="sec-body">
+        <div class="step-row"><div class="step-num">1</div><div class="step-text">Answer &amp; greet — <em>"Thank you for calling Ninefold Pest, this is [your name]"</em></div></div>
+        <div class="step-row"><div class="step-num">2</div><div class="step-text">Verify account — get their name and address before anything else</div></div>
+        <div class="step-row"><div class="step-num">3</div><div class="step-text">Identify reason for call — let them explain fully before responding</div></div>
+        <div class="step-row"><div class="step-num">4</div><div class="step-text">Acknowledge &amp; empathize — don't skip this, even on quick calls</div></div>
+        <div class="step-row"><div class="step-num">5</div><div class="step-text">Pull up account &amp; review notes</div></div>
+        <div class="step-row"><div class="step-num">6</div><div class="step-text">Ask diagnostic questions — pest type, location in home, when first seen</div></div>
+        <div class="step-row"><div class="step-num">7</div><div class="step-text">Offer solution / next steps — schedule, educate, or transfer as needed</div></div>
+        <div class="step-row"><div class="step-num">8</div><div class="step-text">Confirm details back to customer before closing</div></div>
+        <div class="step-row"><div class="step-num">9</div><div class="step-text">Add notes to account — what was said, what was resolved</div></div>
+        <div class="step-row"><div class="step-num">10</div><div class="step-text">Close warmly — recap, ask if there's anything else, thank them by name</div></div>
+      </div>
+    </div>
+
+    <!-- 2. Hard Rules -->
+    <div class="section" id="hardrules">
+      <div class="sec-head"><div class="sec-dot c-red"></div><span class="sec-label">Hard rules</span><span class="sec-badge b-red">Always / never</span></div>
+      <div class="sec-body">
+        <div class="rule-row"><span class="tag t-always">Always</span><span class="rule-text">Verify the account before giving any information</span></div>
+        <div class="rule-row"><span class="tag t-always">Always</span><span class="rule-text">Try to de-escalate and help an angry customer yourself first — supervisor callback is a last resort only</span></div>
+        <div class="rule-row"><span class="tag t-always">Always</span><span class="rule-text">New customer cancel (no initial service yet) → follow initial service cancel protocol, notify customer their sales agent will follow up, send info to April's chat</span></div>
+        <div class="rule-row"><span class="tag t-always">Always</span><span class="rule-text">Established customer cancel → transfer to Account Manager (Retention)</span></div>
+        <div class="rule-row"><span class="tag t-always">Always</span><span class="rule-text">Termites → transfer to Lead Generators queue in TalkDesk — we do not handle termite services</span></div>
+        <div class="rule-row"><span class="tag t-never">Never</span><span class="rule-text">Say "contract" — use "service agreement" or "plan"</span></div>
+        <div class="rule-row"><span class="tag t-never">Never</span><span class="rule-text">Quote pricing or discuss sales offers</span></div>
+        <div class="rule-row"><span class="tag t-never">Never</span><span class="rule-text">Tell a customer you need supervisor approval — offer a callback and handle it internally</span></div>
+        <div class="rule-row"><span class="tag t-never">Never</span><span class="rule-text">Offer a credit or discount as a first resort — up to $20 on your own judgment; over $20 needs approval</span></div>
+        <div class="rule-row"><span class="tag t-never">Never</span><span class="rule-text">Transfer calls to April — she is chat only. Send all info to her chat</span></div>
+      </div>
+    </div>
+
+    <!-- 3. Transfers -->
+    <div class="section" id="transfers">
+      <div class="sec-head"><div class="sec-dot c-purple"></div><span class="sec-label">Transfers &amp; escalations</span><span class="sec-badge b-purple">Who gets what</span></div>
+      <div class="sec-body">
+        <div class="xfer-block">
+          <div class="xfer-head">New customer cancel — no initial service yet</div>
+          <div class="xfer-body">Follow initial service cancel protocol. Let the customer know their sales agent will reach out to follow up and confirm everything. If they have an upcoming appointment, confirm it will not be serviced. Send all info to April's chat — she routes to RC/sales. Do not transfer the call to April.</div>
+        </div>
+        <div class="xfer-block">
+          <div class="xfer-head">Established customer cancel → Account Manager (Retention)</div>
+          <div class="xfer-body">Any customer who has already had their initial service and wants to cancel or downgrade — transfer to Account Manager.</div>
+        </div>
+        <div class="xfer-block">
+          <div class="xfer-head">Termites → Lead Generators queue (TalkDesk)</div>
+          <div class="xfer-body">We do not handle termite services. Transfer immediately — do not attempt to schedule, quote, or advise on termites.</div>
+        </div>
+        <div class="xfer-block">
+          <div class="xfer-head">Same-day anything → April's chat</div>
+          <div class="xfer-body">Same-day service changes, tech no-shows, same-day ETAs or add-ons — message April before committing to anything with the customer.</div>
+        </div>
+        <div class="xfer-block">
+          <div class="xfer-head">Supervisor callback — last resort only</div>
+          <div class="xfer-body">Only when you have genuinely tried to de-escalate and cannot resolve the issue. Offer a callback within 24–48 hours — do not promise an immediate call.</div>
+          <div class="xfer-note">Always attempt to resolve first. This is not a default — it is a last option.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Scheduling -->
+    <div class="section" id="scheduling">
+      <div class="sec-head"><div class="sec-dot c-amber"></div><span class="sec-label">Scheduling rules</span><span class="sec-badge b-amber">Route tiers</span></div>
+      <div class="sec-body">
+        <div class="sched-tier">
+          <div class="sched-head sh-green">Route is open — schedule it</div>
+          <div class="sched-body">Tech is in the area, not overbooked, and the stop is close to the existing route. No approval needed — go ahead and book.</div>
+        </div>
+        <div class="sched-tier">
+          <div class="sched-head sh-amber">5–9 miles from route — Team Lead or Supervisor approval required</div>
+          <div class="sched-body">Check distance in PestRoutes. If the stop falls 5–9 miles out, get approval from Team Lead or Supervisor before confirming with the customer.</div>
+          <div class="sched-note">Offer a callback: "Let me make sure we can fit you in — I'll give you a call back as soon as I've confirmed everything on our end."</div>
+        </div>
+        <div class="sched-tier">
+          <div class="sched-head sh-coral">10+ miles from route — Team Lead or Supervisor first, then Clarissa's sheet</div>
+          <div class="sched-body">Get Team Lead or Supervisor approval first, then add to Clarissa's sheet. Clarissa responds on her responses sheet to approve or deny. Do not add to her sheet without going through Team Lead or Supervisor first.</div>
+          <div class="sched-note">Do not confirm with the customer until Clarissa's response comes through.</div>
+        </div>
+        <div class="sched-tier">
+          <div class="sched-head sh-purple">Reminder day — next 2 calendar days need approval</div>
+          <div class="sched-body">Reminders go out 2 days before an appointment. If today is 5/5, reminders for 5/7 are going out today — meaning any appointment on 5/6 or 5/7 requires Team Lead or Supervisor approval before adding to the route. Anything for today (5/5) is a same-day request and goes to April's chat.</div>
+        </div>
+        <div class="sched-rules">
+          <div class="rule-row"><span class="tag t-always">Always</span><span class="rule-text">Same-day changes or ETAs → April's chat only, do not commit on your own</span></div>
+          <div class="rule-row"><span class="tag t-always">Always</span><span class="rule-text">Mosquito – Premium: April–October &nbsp;|&nbsp; Mosquito – Basic: May–September</span></div>
+          <div class="rule-row"><span class="tag t-never">Never</span><span class="rule-text">Tell a customer you need supervisor approval — say you need to confirm routing and will call them back</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Scripts -->
+    <div class="section" id="scripts">
+      <div class="sec-head"><div class="sec-dot c-teal"></div><span class="sec-label">Scripts</span><span class="sec-badge b-teal">Ready-to-use phrases</span></div>
+      <div class="sec-body">
+        <div class="script-card"><div class="script-label">Opening</div><div class="script-text">"Thank you for calling Ninefold Pest, this is [your name] — can I get your name and the address on your account?"</div></div>
+        <div class="script-card"><div class="script-label">Scheduling callback (approval needed)</div><div class="script-text">"I want to make sure we get you taken care of — let me confirm the best fit on our end and I'll give you a call right back to lock that in."</div></div>
+        <div class="script-card"><div class="script-label">New customer cancel</div><div class="script-text">"I completely understand. I want to make sure everything is handled correctly for you — your sales agent will be reaching out to follow up and confirm everything. If you have an upcoming appointment, please know that it will not be serviced in the meantime."</div></div>
+        <div class="script-card"><div class="script-label">Transferring to Account Manager</div><div class="script-text">"I completely understand — let me get you over to one of our account managers who handles that directly. One moment."</div></div>
+        <div class="script-card"><div class="script-label">Supervisor callback (last resort)</div><div class="script-text">"I hear you, and I want to make sure this gets the attention it deserves. Let me have a supervisor reach out to you within 24 to 48 hours — can I confirm the best number to call you back on?"</div></div>
+        <div class="script-card"><div class="script-label">Closing</div><div class="script-text">"Is there anything else I can help you with today, [name]? Great — thank you so much for calling Ninefold Pest, have a wonderful day!"</div></div>
+      </div>
+    </div>
+
+    <!-- 6. Dead Air -->
+    <div class="section" id="deadair">
+      <div class="sec-head"><div class="sec-dot c-coral"></div><span class="sec-label">Dead air &amp; hold procedure</span><span class="sec-badge b-coral">Key reminders</span></div>
+      <div class="sec-body">
+        <div class="rule-row"><span class="tag t-rule">Rule</span><span class="rule-text">Dead air limit is 10 seconds — if you need a moment, say something. Don't go silent on the customer</span></div>
+        <div class="rule-row"><span class="tag t-rule">Rule</span><span class="rule-text">Always ask permission before placing on hold — never put someone on hold without warning</span></div>
+        <div class="rule-row"><span class="tag t-rule">Rule</span><span class="rule-text">Check back in before 1 minute on hold — every time, no exceptions</span></div>
+        <div class="rule-row"><span class="tag t-rule">Rule</span><span class="rule-text">If you're typing or looking something up, use a bridge phrase so the customer knows you're still there</span></div>
+        <div class="gap"></div>
+        <div class="script-card"><div class="script-label">Placing on hold</div><div class="script-text">"Can I place you on a brief hold while I look into that for you? I'll be right back."</div></div>
+        <div class="script-card"><div class="script-label">Bridge phrase while working</div><div class="script-text">"I'm pulling that up for you right now, just one moment."</div></div>
+        <div class="script-card"><div class="script-label">Check-in on hold</div><div class="script-text">"Thank you so much for holding — I'm still working on this for you, I'll have an answer shortly."</div></div>
+      </div>
+    </div>
+
+    <!-- 7. Notes & Appt Cards -->
+    <div class="section" id="notes">
+      <div class="sec-head"><div class="sec-dot c-green"></div><span class="sec-label">Notes &amp; appointment cards</span><span class="sec-badge b-green">What to include</span></div>
+      <div class="sec-body">
+        <div class="callout"><strong>Important:</strong> The time frame selector on the left side of the appointment card (AM / PM / timed slot) is what actually locks the ETA into the route. Selecting this is the most critical step — writing the ETA in the notes alone does not lock it in.</div>
+        <div class="appt-grid">
+          <div class="appt-card">
+            <div class="appt-head ah-amber">Appt card — left side (time selector)</div>
+            <div class="appt-body">
+              <div class="appt-item"><div class="appt-dot dot-amber"></div><div>Select AM, PM, or specific timed slot</div></div>
+              <div class="appt-item"><div class="appt-dot dot-amber"></div><div class="appt-warn">This locks the ETA into the route — must be selected, not just written in notes</div></div>
+            </div>
+          </div>
+          <div class="appt-card">
+            <div class="appt-head ah-blue">Appt card — notes area</div>
+            <div class="appt-body">
+              <div class="appt-item"><div class="appt-dot dot-blue"></div><div>Which ETA was given to the customer (AM, PM, or specific time)</div></div>
+              <div class="appt-item"><div class="appt-dot dot-blue"></div><div>Any pest activity or areas of concern the customer mentioned</div></div>
+              <div class="appt-item"><div class="appt-dot dot-blue"></div><div>Your name</div></div>
+              <div class="appt-item"><div class="appt-dot dot-blue"></div><div>"Appt Confirmed" — if you confirmed the appointment with the customer</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-head">Interaction / account notes — always include:</div>
+          <div class="info-item">Customer's name</div>
+          <div class="info-item">Phone number they called from</div>
+          <div class="info-item">Reason for the call</div>
+          <div class="info-item">What was resolved or next steps taken</div>
+        </div>
+        <div class="rule-row"><span class="tag t-never">Never</span><span class="rule-text">Leave the time frame selector blank — this is the most common appointment card miss on evals</span></div>
+      </div>
+    </div>
+
+    <!-- 8. Language Guide -->
+    <div class="section" id="language">
+      <div class="sec-head"><div class="sec-dot c-gray"></div><span class="sec-label">Language guide</span><span class="sec-badge b-gray">Don't say this → say this instead</span></div>
+      <div class="sec-body">
+        <div class="dont-row"><div class="dont-wrong"><span class="dx">✕</span>"Contract"</div><div class="dont-right"><span class="dx">→</span>"Service agreement" or "plan"</div></div>
+        <div class="dont-row"><div class="dont-wrong"><span class="dx">✕</span>"I need to get approval from my supervisor"</div><div class="dont-right"><span class="dx">→</span>"I need to confirm the routing on our end — I'll call you right back"</div></div>
+        <div class="dont-row"><div class="dont-wrong"><span class="dx">✕</span>"I need to get approval from the tech"</div><div class="dont-right"><span class="dx">→</span>"Let me make a couple of adjustments and confirm that date — I'll follow up shortly"</div></div>
+        <div class="dont-row"><div class="dont-wrong"><span class="dx">✕</span>Jumping to "we don't service that" with no questions</div><div class="dont-right"><span class="dx">→</span>Ask clarifying questions first, identify a related service if possible, then redirect</div></div>
+        <div class="dont-row"><div class="dont-wrong"><span class="dx">✕</span>Over-apologizing — "I'm sorry, I'm sorry"</div><div class="dont-right"><span class="dx">→</span>Acknowledge once, then move to solving the issue</div></div>
+        <div class="dont-row"><div class="dont-wrong"><span class="dx">✕</span>Offering a credit or discount immediately</div><div class="dont-right"><span class="dx">→</span>Exhaust other options first — credits are a last resort, not a first offer</div></div>
+      </div>
+    </div>
+
+  </div><!-- end .content -->
+</body>
+</html>
